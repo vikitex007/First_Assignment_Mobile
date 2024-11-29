@@ -8,16 +8,12 @@ class ArithmeticView extends StatefulWidget {
 }
 
 class _ArithmeticViewState extends State<ArithmeticView> {
-  // int first = 0;
-  // int second = 0;
-
-  // TextEditingController
-  final firstController = TextEditingController(text: '2');
-  final secondController = TextEditingController(text: '3');
+  int first = 0;
+  int second = 0;
   int result = 0;
 
   // Global key for form state
-  final myKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> myKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,81 +29,87 @@ class _ArithmeticViewState extends State<ArithmeticView> {
           key: myKey,
           child: Column(
             children: [
+              // Input field for the first number
               TextFormField(
-                // onChanged: (value) {
-                //   // value lai int ma convert garera first ma store garako
-                //   first = int.tryParse(value) ?? 0;
-                // },
-                controller: firstController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Enter first number',
                   border: OutlineInputBorder(),
                 ),
+                onChanged: (value) {
+                  first = int.tryParse(value) ?? 0;
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter first no';
+                    return 'Please enter the first number';
+                  }
+                  if (int.tryParse(value) == null) {
+                    return 'Please enter a valid number';
                   }
                   return null;
                 },
               ),
-              // Invisible box
-              const SizedBox(height: 10),
+              const SizedBox(height: 10), // Spacer
+
+              // Input field for the second number
               TextFormField(
-                // onChanged: (value) {
-                //   second = int.tryParse(value) ?? 0;
-                // },
-                controller: secondController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Enter second number',
                   border: OutlineInputBorder(),
                 ),
+                onChanged: (value) {
+                  second = int.tryParse(value) ?? 0;
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter second no';
+                    return 'Please enter the second number';
+                  }
+                  if (int.tryParse(value) == null) {
+                    return 'Please enter a valid number';
                   }
                   return null;
                 },
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20), // Spacer
 
+              // Display the result
               Text(
                 'Result: $result',
                 style: const TextStyle(fontSize: 30),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20), // Spacer
+
+              // Button for Addition
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Page lai refresh garako
                     if (myKey.currentState!.validate()) {
                       setState(() {
-                        result = int.parse(firstController.text) +
-                            int.parse(secondController.text);
+                        result = first + second;
                       });
                     }
                   },
                   child: const Text('Addition'),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 10), // Spacer
 
+              // Button for Subtraction
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
                     if (myKey.currentState!.validate()) {
                       setState(() {
-                        result = int.parse(firstController.text) -
-                            int.parse(secondController.text);
+                        result = first - second;
                       });
                     }
                   },
                   child: const Text('Subtraction'),
                 ),
-              )
+              ),
             ],
           ),
         ),
