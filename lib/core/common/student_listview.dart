@@ -1,29 +1,39 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:listview_class/view/individual_student_view.dart';
 import '../../model/student.dart';
 
 class StudentListview extends StatelessWidget {
-  final dynamic lstStudents;
+  final List<Student> lstStudents;
 
   const StudentListview({super.key, required this.lstStudents});
 
-
-  // final List<Student> lstStudents;
   @override
   Widget build(BuildContext context) {
-    return  Expanded(
+    return Expanded(
       child: ListView.separated(
         separatorBuilder: (context, index) => const Divider(),
         itemCount: lstStudents.length,
         itemBuilder: (context, index) {
+          final student = lstStudents[index];
           return ListTile(
-            leading: Icon(Icons.abc_outlined),
-            title: Text(
-                '${lstStudents[index].fname} ${lstStudents[index].lname}'),
-            subtitle: Text(lstStudents[index].city),
+            onTap: () {
+              // Navigate to IndividualStudentView with the selected student
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => IndividualStudentView(student: student),
+                ),
+              );
+            },
+            leading: const Icon(Icons.person),
+            title: Text('${student.fname} ${student.lname}'),
+            subtitle: Text(student.city),
             trailing: IconButton(
-                onPressed: () {}, icon: Icon(Icons.delete)),
+              onPressed: () {
+                // Handle delete action if necessary
+              },
+              icon: const Icon(Icons.delete),
+            ),
           );
         },
       ),
