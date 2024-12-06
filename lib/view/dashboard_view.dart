@@ -1,6 +1,7 @@
 import 'package:first_assignment/view/area_of_circle.dart';
 import 'package:first_assignment/view/arithmetic_view.dart';
 import 'package:first_assignment/view/first_view.dart';
+import 'package:first_assignment/view/simple_interest_view.dart';
 import 'package:flutter/material.dart';
 
 class DashboardView extends StatelessWidget {
@@ -28,7 +29,7 @@ class DashboardView extends StatelessWidget {
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.ac_unit),
+                  Icon(Icons.first_page),
                   Text('First View'),
                 ],
               ),
@@ -76,13 +77,13 @@ class DashboardView extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ArithmeticView()),
+                      builder: (context) => const SimpleInterestView()),
                 );
               },
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.ac_unit),
+                  Icon(Icons.calculate_outlined),
                   Text('Simple interest'),
                 ],
               ),
